@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Diary</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+<h1>🌍 My Travel Diary</h1>
+
+<!-- Form to Add a Trip -->
+<div class="form-container">
+    <input type="text" id="trip-title" placeholder="Trip Title" required>
+    <textarea id="trip-description" placeholder="Describe your trip"></textarea>
+    <input type="file" id="trip-photo" accept="image/*">
+    <input type="text" id="trip-location" placeholder="Enter Location">
+    <button onclick="addTrip()">Add Trip</button>
+</div>
+
+<!-- Map Section -->
+<div id="map"></div>
+
+<!-- Trip List -->
+<h2>📍 My Trips</h2>
+<ul id="trip-list"></ul>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="../js/script.js"></script>
+</body>
+</html>
