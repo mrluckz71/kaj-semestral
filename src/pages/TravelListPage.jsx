@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import TravelCard from "../components/TravelCard";
+import "../App.css";
 
 function TravelList() {
     return (
