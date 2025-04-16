@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 
 function Welcome() {
     return(
@@ -6,6 +7,7 @@ function Welcome() {
             <p>Your ultimate travel companion.</p>
             <p>Explore, plan, and share your travel experiences with us.</p>
             <p>Join our community and start your adventure today!</p>
+            <p><Link to='/travels'>Travels</Link></p>
         </div>
     );
 }
