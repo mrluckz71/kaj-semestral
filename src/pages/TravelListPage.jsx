@@ -2,17 +2,19 @@ import React from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import TravelCard from "../components/TravelCard";
 
 function TravelList() {
     return (
-        <div>
+        <div style={{ width: "100%", padding: "20px", backgroundColor: "#f0f0f0", justifyContent: "space-between", alignContent: "center", alignItems: "center" }}>
             <Header />
             <h2>Travel Destinations</h2>
-            <ul>
-                <li>Paris</li>
-                <li>New York</li>
-                <li>Tokyo</li>
-                <li>Sydney</li>
+            <ul style={{ listStyleType: "none", display: "flex", flexWrap: "wrap", padding: 0, alignContent: "center" }}>
+                <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
             </ul>
             <Footer />
         </div>
