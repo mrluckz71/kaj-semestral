@@ -1,0 +1,35 @@
+.header{
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+}
+
+li {
+    margin: 0 10px;
+    border: 1px solid white;
+    background-color: #4cae4c;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+li:hover {
+    background-color: #5cb85c;
+}
