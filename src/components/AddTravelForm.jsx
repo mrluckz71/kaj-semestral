@@ -2,7 +2,7 @@ import React from "react";
 
 function AddTravelForm(){
     return (
-        <div className="container-container">
+        <div className="container">
             <div className="addTrip-container">
                 <form className="add-travel" id="add-travel-form">
                     <h1>🌍 Add a Trip</h1>

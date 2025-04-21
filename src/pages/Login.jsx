@@ -2,6 +2,7 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import React from "react";
 import "../css/login.css"
+import {Link} from "react-router-dom";
 
 function Login() {
     return (
@@ -27,7 +28,7 @@ function Login() {
                     <button className="login-button">Login</button>
 
                     If you don't have an account yet, please
-                    <a href="Register.jsx">register here</a>
+                    <Link to="/register"> register here</Link>
                 </form>
             </div>
         </div>

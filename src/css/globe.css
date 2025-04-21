@@ -1,0 +1,34 @@
+body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.globe-wrapper{
+    padding: 20px;
+}
+
+.globe {
+    rotate: -15deg;
+    width: 55px;
+    height: 50px;
+    border-radius: 55%;
+    background-image: url('https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57730/land_ocean_ice_2048.jpg');
+    background-size: 200% 110%;
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    animation: spin 30s linear infinite;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+@keyframes spin {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -400% 0;
+    }
+}
