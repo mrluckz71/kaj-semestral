@@ -3,6 +3,16 @@ import Footer from "../components/Footer.jsx";
 import React from "react";
 
 function AddTravel() {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const title = document.getElementById("trip-title").value;
+        const description = document.getElementById("trip-description").value;
+        const location = document.getElementById("trip-location").value;
+        const image = document.getElementById("preview").src;
+
+        // Here you would typically send the data to your server or API
+        console.log({ title, description, location, image });
+    };
     return (
         <div className="container">
             <div className="addTrip-container">
@@ -21,7 +31,7 @@ function AddTravel() {
                     <label className="location">
                         <input type="text" id="trip-location" placeholder="Enter Location"/>
                     </label>
-                    <button onClick="addTrip()">Add Trip</button>
+                    <button type="submit" onClick={handleSubmit}>Add Trip</button>
                 </form>
             </div>
         </div>
