@@ -1,15 +1,6 @@
-:root {
-    --primary-color: #5cb85c;
-    --primary-hover: #4cae4c;
-    --background-gradient-start: #e0f7da;
-    --background-gradient-end: #c8e6c9;
-    --text-color: #444;
-    --muted-color: #888;
-    --input-border: #ccc;
-    --input-focus: #a5d6a7;
-    --link-color: #43a047;
-    --error-color: #d32f2f;
-}
+@import "variables.css";
+
+/* ===== Container ===== */
 .container-container {
     display: flex;
     justify-content: center;
@@ -18,6 +9,7 @@
     width: 100%;
 }
 
+/* ===== Add Trip Card ===== */
 .addTrip-container {
     background-color: white;
     padding: 40px 30px;
@@ -27,7 +19,7 @@
     animation: fadeIn 0.8s ease;
 }
 
-
+/* ===== Form Styles ===== */
 .addTrip h1 {
     text-align: center;
     color: var(--primary-color);
@@ -44,16 +36,7 @@
 
 .addTrip input[type="text"],
 .addTrip input[type="password"],
-.addTrip .email-address,
-.addTrip .password {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
+.addTrip input[type="email"],
 .addTrip textarea {
     width: 100%;
     padding: 12px;
@@ -61,19 +44,21 @@
     border-radius: 8px;
     margin-bottom: 10px;
     font-size: 16px;
+    font-family: inherit;
 }
 
-.addTrip input:focus {
+.addTrip input:focus,
+.addTrip textarea:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: 0 0 6px var(--input-focus);
 }
 
-
+/* ===== Dropzone ===== */
 .dropzone {
-    width: 300px;
+    width: 100%;
     height: 200px;
-    margin: 0 auto;
+    margin: 20px 0;
     border: 2px dashed #ccc;
     border-radius: 8px;
     display: flex;
@@ -81,16 +66,26 @@
     justify-content: center;
     color: #555;
     transition: background-color 0.3s;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .dropzone.hover {
     background-color: #e8e8e8;
 }
 
+/* ===== Preview image ===== */
 #preview {
-    max-width: 30px;
-    margin-top: 20px;
     display: flex;
-    justify-content: left;
     align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+    max-width: 100px;
+}
+
+@media (max-height: 600px) {
+    .addTrip-container{
+        width: 90%;
+    }
 }

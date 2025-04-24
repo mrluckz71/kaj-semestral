@@ -1,16 +1,4 @@
-:root {
-    --primary-color: #5cb85c;
-    --primary-hover: #4cae4c;
-    --background-gradient-start: #e0f7da;
-    --background-gradient-end: #c8e6c9;
-    --text-color: #444;
-    --muted-color: #888;
-    --input-border: #ccc;
-    --input-focus: #a5d6a7;
-    --link-color: #43a047;
-    --error-color: #d32f2f;
-}
-
+@import "variables.css";
 * {
     box-sizing: border-box;
     margin: 0;

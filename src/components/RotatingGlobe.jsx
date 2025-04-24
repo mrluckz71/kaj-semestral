@@ -1,4 +1,3 @@
-import "../css/globe.css"
 
 function RotatingGlobe(){
     return (

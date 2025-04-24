@@ -2,6 +2,8 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../firebase.js";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -9,22 +11,22 @@ function Register() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
+        setError("");
         if (!email || !password) {
             setError("Email and password are required.");
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        if (users.find((user) => user.email === email)) {
-            setError("User already exists.");
-            return;
+        try {
+            console.log(email);
+            await createUserWithEmailAndPassword(auth, email, password);
+            console.log("Login successful");
+            navigate("/login");
+        } catch (error) {
+            setError(error.message);
         }
-
-        users.push({ email, password });
-        localStorage.setItem("users", JSON.stringify(users));
-        navigate("/login");
     };
 
     const handlePasswordMatch = (e) => {

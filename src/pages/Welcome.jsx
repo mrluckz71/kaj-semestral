@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import "../css/welcome.css";
 import RotatingGlobe from "../components/RotatingGlobe.jsx";
 
 function Welcome() {

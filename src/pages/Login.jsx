@@ -1,8 +1,9 @@
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import React, {useState} from "react";
-import "../css/login.css"
 import {Link, useNavigate} from "react-router-dom";
+import { auth } from "../firebase.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -10,20 +11,22 @@ function Login() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const user = users.find(
-            (user) => user.email === email && user.password === password
-        );
+        setError("");
 
-        if (!user) {
-            setError("Invalid credentials. Please try again.");
-            return;
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate("/travels");
+        } catch (error) {
+            if (error.code === "auth/user-not-found") {
+                setError("User not found. Please register.");
+            } else if (error.code === "auth/wrong-password") {
+                setError("Incorrect password. Please try again.");
+            } else {
+                setError("An error occurred. Please try again.");
+            }
         }
-
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
-        navigate("/travels");
     };
     return (
         <div className="container">

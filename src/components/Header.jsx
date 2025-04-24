@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import "../css/header.css";
+import "../css/layout.css";
 
 function Header() {
     const [loggedInUser, setLoggedInUser] = useState(null);
@@ -17,7 +17,7 @@ function Header() {
         <div className="header">
             <h1>My Website</h1>
             <nav>
-                <ul>
+                <ul className="header-nav-links">
                     <li><Link to="/add-travel">Add travel</Link></li>
                     {loggedInUser ? (
                         <li>Signed in as: {loggedInUser}</li>
