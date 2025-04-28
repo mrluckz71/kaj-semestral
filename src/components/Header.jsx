@@ -15,7 +15,7 @@ function Header() {
 
     return (
         <div className="header">
-            <h1>My Website</h1>
+            <h1>Travel Diary</h1>
             <nav>
                 <ul className="header-nav-links">
                     <li><Link to="/add-travel">Add travel</Link></li>

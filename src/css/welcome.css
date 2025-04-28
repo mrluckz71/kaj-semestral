@@ -6,9 +6,15 @@
     align-items: center;
 }
 
+.welcome-buttons{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
 .link {
+    text-align: center;
     text-decoration: none;
-    color: #007bff;
     font-size: 18px;
     margin-top: 20px;
     background-color: #5cb85c;
@@ -19,5 +25,10 @@
 }
 
 .link:hover {
-    background-color: #4cae4c;
+    background-color: #008a00;
+}
+
+.link:active {
+    background-color: #005f00;
+    color: #444444;
 }

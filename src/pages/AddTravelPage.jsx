@@ -10,6 +10,7 @@ function AddTravel() {
         const location = document.getElementById("trip-location").value;
         const image = document.getElementById("preview").src;
 
+
         // Here you would typically send the data to your server or API
         console.log({ title, description, location, image });
     };

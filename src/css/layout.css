@@ -36,6 +36,39 @@
 .header nav ul li a:hover {
     background-color: #21a1f1;
 }
+/* Main content styles */
+.travel_list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    gap: 40px;
+    padding: 40px;
+}
+.travel-card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+.travel-card-details:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+}
+
+.travel_list li {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+.travel_list li img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
 /* Footer styles */
 .footer {
     background-color: #282c34;
@@ -64,15 +97,13 @@
     align-items: center;
     width: 100%;
 }
-
-.footer a {
+.footer nav ul li {
+    padding: 20px;
+}
+.footer li:hover {
+    background-color: #21a1f1;
+}
+.footer li a {
     color: #61dafb;
     text-decoration: none;
-}
-
-.footer a:visited {
-    color: #61dafb;
-}
-.footer a:hover {
-    text-decoration: underline;
 }

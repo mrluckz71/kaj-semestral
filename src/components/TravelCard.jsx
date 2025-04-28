@@ -1,17 +1,19 @@
 import React from "react";
-import imageSrc from "../assets/image.jpg";
+import {Link} from "react-router-dom";
 
-function TravelCard({ location, description, image }) {
+function TravelCard({ location, description, image, uniqueId }) {
     // Default image if none is provided
     const defaultImage = "./src/assets/image.jpg";
     return (
-        <div className="travel-card">
-            <img src={defaultImage} alt="Travel Destination" />
-            <h2>Travel Destination</h2>
-            <p>Location: {location}</p>
-            <p>Description: {description}</p>
-            <button>View Details</button>
-        </div>
+        <>
+            <Link className="travel-card-details" to={`/travel/${uniqueId}`}>
+                <div className="travel-card">
+                    <img src={defaultImage} alt="Travel Destination" />
+                    <p>Location: {location}</p>
+                    <p>Description: {description}</p>
+                </div>
+            </Link>
+        </>
     );
 }
 

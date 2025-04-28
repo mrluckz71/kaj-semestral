@@ -12,8 +12,10 @@ function Welcome() {
             <p>Join our community and start your adventure today!</p>
             <p>Already have an account?</p>
 
-            <Link className="link" to="/login">Login here</Link>
-            <Link className="link" to="/register">Register here</Link>
+            <div className="welcome-buttons">
+                <Link className="link" to="/login">Login here</Link>
+                <Link className="link" to="/register">Register here</Link>
+            </div>
         </div>
     );
 }
