@@ -17,6 +17,10 @@ function Login() {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            console.log("Login successful");
+            // Store user data in localStorage
+            localStorage.setItem("loggedInUser", JSON.stringify({ email }));
+            // Redirect to the travel list page
             navigate("/travels");
         } catch (error) {
             if (error.code === "auth/user-not-found") {

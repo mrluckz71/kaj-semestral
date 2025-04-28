@@ -6,6 +6,7 @@ import AddTravel from '../pages/AddTravelPage.jsx';
 import TravelListPage from '../pages/TravelListPage';
 import ForgotPassword from '../pages/ForgotPassword';
 import Welcome from '../pages/Welcome.jsx';
+import TravelDetailPage from '../pages/TravelDetailPage.jsx';
 
 function AppRoutes() {
     return (
@@ -16,6 +17,7 @@ function AppRoutes() {
             <Route path="/add-travel" element={<AddTravel />} />
             <Route path="/travels" element={<TravelListPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/travel/:id" element={<TravelDetailPage />} />
         </Routes>
     );
 }
