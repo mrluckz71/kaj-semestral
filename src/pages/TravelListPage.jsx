@@ -32,19 +32,21 @@ function TravelList() {
     return (
         <>
             <Header />
-                <h2>Travel Destinations</h2>
-                    <ul className="travel_list">
-                        <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                        <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                        <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                        <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                        <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                        {trips.map(trip => (
-                            <li>
-                                <TravelCard location={trip.location} description={trip.description} image={trip.image} uniqueId={trip.id} />
-                            </li>
-                        ))}
-                    </ul>
+                <div className="travel_list_container">
+                    <h2>Travel Destinations</h2>
+                        <ul className="travel_list">
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                            {trips.map(trip => (
+                                <li>
+                                    <TravelCard location={trip.location} description={trip.description} image={trip.image} uniqueId={trip.id} />
+                                </li>
+                            ))}
+                        </ul>
+                </div>
             <Footer />
         </>
     );

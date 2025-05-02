@@ -37,6 +37,11 @@
     background-color: #21a1f1;
 }
 /* Main content styles */
+.travel_list_container {
+    background-color: var(--background-gradient-start);
+    margin: 0;
+}
+
 .travel_list {
     list-style: none;
     display: grid;
