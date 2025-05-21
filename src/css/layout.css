@@ -1,3 +1,14 @@
+/* Body styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-gradient-start);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* Header styles */
 .header{
     background-color: #282c34;
