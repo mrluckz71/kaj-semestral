@@ -77,24 +77,23 @@ function TravelList() {
                     {/*    )}*/}
 
                     {/*</div>*/}
-
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
                     <ul className="travel_list">
-                            <li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='1'/></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='2'/></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='3'/></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='4'/></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='5'/></li>
-                            {/*{loading &&*/}
-                            {/*    <img>*/}
-                            {/*        /!*Loading... with animation to pass the point with animation*!/*/}
-                            {/*    </img>*/}
-                            {/*}*/}
+                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='1'/></li>*/}
+                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='2'/></li>*/}
+                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='3'/></li>*/}
+                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='4'/></li>*/}
+                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='5'/></li>*/}
+
                             {trips.map(trip => (
                                 <li>
                                     <TravelCard location={trip.location} description={trip.description} image={trip.image} uniqueId={trip.id} />
                                 </li>
                             ))}
                         </ul>
+                    )}
                 </div>
             <Footer />
         </>
