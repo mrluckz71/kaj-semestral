@@ -57,17 +57,26 @@ function Login() {
                         />
                     </label>
                     {error && <p className="error">{error}</p>}
-                    <label>
-                        <input type="checkbox" className="remember-me"/>
-                        Remember me
-                    </label>
 
-                    <a href="/forget" className="forget-password">Forgot password?</a>
+
+                    {/*<label className="remember-me-label">*/}
+                    {/*    <input type="checkbox" className="remember-me-checkbox" />*/}
+                    {/*        Remember me*/}
+                    {/*</label>*/}
+
 
                     <button className="login-button" type="submit">Login</button>
 
-                    If you don't have an account yet, please
-                    <Link to="/register"> register here</Link>
+                    {/*<div className="forgot-password">*/}
+                    {/*    <Link to="/forgot-password" className="forgot-link">Forgot Password?</Link>*/}
+                    {/*</div>*/}
+
+                    <div className="register-link">
+                        <p>If you don't have an account yet, please
+                            <br />
+                            <Link to="/register">register here</Link>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

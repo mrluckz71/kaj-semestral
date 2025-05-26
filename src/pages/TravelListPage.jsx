@@ -54,7 +54,6 @@ function TravelList() {
         <>
             <Header />
                 <div className="travel_list_container">
-                    <h2>Travel Destinations</h2>
                     {/*<h4>Map of travel destinations</h4>*/}
                     {/*<div className="map" style={{ height: "400px", width: "100%", marginBottom: "2rem" }}>*/}
                     {/*    {!loading && (*/}
@@ -80,11 +79,11 @@ function TravelList() {
                     {/*</div>*/}
 
                     <ul className="travel_list">
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
-                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' /></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='1'/></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='2'/></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='3'/></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='4'/></li>
+                            <li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='5'/></li>
                             {/*{loading &&*/}
                             {/*    <img>*/}
                             {/*        /!*Loading... with animation to pass the point with animation*!/*/}
