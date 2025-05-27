@@ -6,6 +6,8 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import TravelCard from '../components/TravelCard';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import {Link} from "react-router-dom";
+import MapWithPins from "./MapWithPins.jsx";
 
 
 // const markerIcon = new L.Icon({
@@ -39,7 +41,7 @@ function TravelList() {
                 }));
 
                 setTrips(loadedTrips);
-                console.log("Trips loaded:", loadedTrips);
+                // console.log("Loaded trips:", loadedTrips);
             } catch (error) {
                 console.error("Error loading trips:", error);
             } finally {
@@ -80,6 +82,9 @@ function TravelList() {
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
+
+                        <>
+                        <Link to="/map" state={{ trips }}>Map</Link>
                     <ul className="travel_list">
                             {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='1'/></li>*/}
                             {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='2'/></li>*/}
@@ -93,6 +98,7 @@ function TravelList() {
                                 </li>
                             ))}
                         </ul>
+                        </>
                     )}
                 </div>
             <Footer />

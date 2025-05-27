@@ -1,39 +1,42 @@
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 function AddTravel() {
-    const [image, setImage] = useState(null
-    );
+    const [image, setImage] = useState(null);
     const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const title = document.getElementById("trip-title").value;
         const description = document.getElementById("trip-description").value;
         const location = document.getElementById("trip-location").value;
-        // Fetch coordinates using OpenStreetMap's API
-        // fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.length === 0) {
-        //             alert("Location not found!");
-        //             return;
-        //         }
-        //
-        //         const lat = data[0].lat;
-        //         const lon = data[0].lon;
-        //
-        //     });
+
+        if (!title || !location) {
+            alert("Vyplňte název a místo!");
+            return;
+        }
+
         try {
+            // Získání souřadnic z OSM
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+            const data = await response.json();
+
+            if (data.length === 0) {
+                alert("Location not found!");
+                return;
+            }
+            console.log(data);
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+
             await addDoc(collection(db, "trips"), {
-                title: title,
-                description: description,
-                location: location,
-                // lat: parseFloat(lat),
-                // lng: parseFloat(lon),
+                title,
+                description,
+                location,
+                lat,
+                lng: lon,
                 image: image || "",
                 userId: auth.currentUser?.uid || "anonymous",
                 createdAt: new Date()
@@ -45,13 +48,14 @@ function AddTravel() {
             alert("Failed to add trip.");
         }
     };
+
     const handleImageDrop = (e) => {
         e.preventDefault();
         const file = e.dataTransfer?.files[0];
         if (file && file.type.startsWith("image/")) {
             const reader = new FileReader();
             reader.onload = (event) => {
-                setImage(event.target.result); // base64 image
+                setImage(event.target.result);
             };
             reader.readAsDataURL(file);
         }
@@ -70,12 +74,11 @@ function AddTravel() {
 
     const handleDragOver = (e) => e.preventDefault();
 
-
     return (
         <>
             <div className="container-addTrip-container">
                 <div className="addTrip-container">
-                    <form className="addTrip" id="add-travel-form">
+                    <form className="addTrip" id="add-travel-form" onSubmit={handleSubmit}>
                         <h1>🌍 Add a Trip</h1>
                         <label className="title">
                             <input type="text" id="trip-title" placeholder="Trip Title" required />
@@ -117,12 +120,10 @@ function AddTravel() {
                                 </div>
                             </div>
                         )}
-
-
                         <label className="location">
-                            <input type="text" id="trip-location" placeholder="Enter Location" />
+                            <input type="text" id="trip-location" placeholder="Enter Location" required />
                         </label>
-                        <button type="submit" onClick={handleSubmit}>Add Trip</button>
+                        <button type="submit">Add Trip</button>
                     </form>
                 </div>
             </div>

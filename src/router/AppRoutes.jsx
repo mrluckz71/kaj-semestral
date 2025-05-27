@@ -7,6 +7,7 @@ import TravelListPage from '../pages/TravelListPage';
 import ForgotPassword from '../pages/ForgotPassword';
 import Welcome from '../pages/Welcome.jsx';
 import TravelDetailPage from '../pages/TravelDetailPage.jsx';
+import MapWithPins from "../pages/MapWithPins.jsx";
 
 function AppRoutes() {
     return (
@@ -18,6 +19,7 @@ function AppRoutes() {
             <Route path="/travels" element={<TravelListPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/travel/:id" element={<TravelDetailPage />} />
+            <Route path="/map" element={<MapWithPins />} />
         </Routes>
     );
 }
