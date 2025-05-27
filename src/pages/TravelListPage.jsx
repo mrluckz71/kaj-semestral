@@ -1,13 +1,10 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import React, { useEffect, useState } from 'react';
-import { auth, db } from '../firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import TravelCard from '../components/TravelCard';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-import {Link} from "react-router-dom";
-import MapWithPins from "./MapWithPins.jsx";
+
 
 
 // const markerIcon = new L.Icon({
@@ -23,38 +20,46 @@ function TravelList() {
 
 
     useEffect(() => {
-        const loadTrips = async () => {
-            const user = auth.currentUser;
-            if (!user) {
-                setLoading(false);
-                return;
+            async function fetchTrips() {
+                try {
+                        // Try fetching all trips (no filter)
+                        const snapshot = await getDocs(collection(db, "trips"));
+                        console.log('Snapshot:', snapshot);
+                        const trips = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+                        if (navigator.onLine) {
+                            trips.forEach(trip => {
+                                if (trip.pendingGeolocation) {
+                                    // If the trip has pending geolocation, fetch it
+                                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(trip.location)}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.length > 0) {
+                                                trip.lat = parseFloat(data[0].lat);
+                                                trip.lng = parseFloat(data[0].lon);
+                                                trip.pendingGeolocation = false;
+                                            }
+                                        })
+                                        .catch(err => console.error("Error fetching geolocation:", err));
+                                }
+                            })
+                        }
+                        trips.sort((a, b) => b.createdAt - a.createdAt);
+                        // Log the fetched trips
+                        console.log('Fetched trips:', trips);
+                        setTrips(trips);
+                } catch (err) {
+                    console.error("Error fetching trips:", err);
+                } finally {
+                    setLoading(false);
+                }
             }
+            fetchTrips();
+        }, []);
 
-            try {
-                const tripsRef = collection(db, "trips");
-                const q = query(tripsRef, where("userId", "==", user.uid));
-                const querySnapshot = await getDocs(q);
 
-                const loadedTrips = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-
-                setTrips(loadedTrips);
-                // console.log("Loaded trips:", loadedTrips);
-            } catch (error) {
-                console.error("Error loading trips:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadTrips();
-    }, []);
-
-    return (
+        return (
         <>
-            <Header />
+            <Header trips={trips} />
                 <div className="travel_list_container">
                     {/*<h4>Map of travel destinations</h4>*/}
                     {/*<div className="map" style={{ height: "400px", width: "100%", marginBottom: "2rem" }}>*/}
@@ -82,9 +87,7 @@ function TravelList() {
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-
                         <>
-                        <Link to="/map" state={{ trips }}>Map</Link>
                     <ul className="travel_list">
                             {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='1'/></li>*/}
                             {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='2'/></li>*/}

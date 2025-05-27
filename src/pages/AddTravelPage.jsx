@@ -19,17 +19,24 @@ function AddTravel() {
         }
 
         try {
-            // Získání souřadnic z OSM
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
-            const data = await response.json();
+            let lat = null;
+            let lon = null;
+            let pendingGeolocation = false;
 
-            if (data.length === 0) {
-                alert("Location not found!");
-                return;
+            if (navigator.onLine) {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    alert("Location not found!");
+                    return;
+                }
+                console.log(data);
+                lat = parseFloat(data[0].lat);
+                lon = parseFloat(data[0].lon);
+            } else {
+                pendingGeolocation = true;
             }
-            console.log(data);
-            const lat = parseFloat(data[0].lat);
-            const lon = parseFloat(data[0].lon);
 
             await addDoc(collection(db, "trips"), {
                 title,
@@ -37,15 +44,16 @@ function AddTravel() {
                 location,
                 lat,
                 lng: lon,
+                pendingGeolocation,
                 image: image || "",
                 userId: auth.currentUser?.uid || "anonymous",
                 createdAt: new Date()
             });
 
+            console.log("Trip added successfully!");
             navigate("/travels");
         } catch (error) {
             console.error("Error adding trip:", error);
-            alert("Failed to add trip.");
         }
     };
 

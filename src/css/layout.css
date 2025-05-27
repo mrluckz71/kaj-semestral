@@ -22,6 +22,41 @@ body {
     padding: 0 20px;
 }
 
+.header .wifi-icon:hover {
+    color: var(--primary-color-hover);
+    transform: scale(1.1);
+}
+
+.header .online-status .hover-text {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #222;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+.header .online-status:hover .hover-text {
+    display: block;
+}
+
+.header .home-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.header .home-link:hover {
+    color: var(--primary-color-hover);
+    transform: scale(1.1);
+}
+
 .header nav {
     height: 100%;
     display: flex;
@@ -66,6 +101,8 @@ body {
 .header nav ul li a:hover,
 .header nav ul li button:hover {
     background-color: var(--primary-color-hover);
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 .header nav ul li a,
@@ -163,9 +200,12 @@ body {
 
 
 /* Footer styles */
+/* Vendor prefixes */
 .footer {
     background-color: var(--header-background);
     color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     text-align: center;
     padding: 20px 0;
@@ -175,27 +215,58 @@ body {
 }
 
 .footer nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
     align-items: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     width: 100%;
 }
 
 .footer nav ul {
     list-style: none;
     padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
     justify-content: space-evenly;
+    -ms-flex-pack: distribute;
     align-items: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     width: 100%;
 }
 
 .footer nav ul li {
     padding: 20px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    transition: background 0.2s;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.2s;
+    font-size: 20px;
 }
 
-.footer li a {
+/* Usage of advanced selector  */
+.footer nav ul > li:first-child {
     color: #61dafb;
     text-decoration: none;
+    font-weight: bold;
+}
+
+.footer nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer nav ul li a:hover {
+    color: var(--primary-color-hover);
 }

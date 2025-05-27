@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import "../css/layout.css";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import OnlineStatus from "./OnlineStatus.jsx";
 
-function Header() {
+function Header({ trips = [] }) {
     const [loggedInUser, setLoggedInUser] = useState(null);
     const navigate = useNavigate();
 
@@ -31,9 +32,11 @@ function Header() {
 
     return (
         <div className="header">
-            <h1>Travel Diary</h1>
+            <OnlineStatus />
+            <h1><Link to="/travels" className="home-link">Travel Diary</Link></h1>
             <nav>
                 <ul className="header-nav-links">
+                    <li><Link to="/map" state={{trips}}>Show Map</Link></li>
                     <li><Link to="/add-travel">Add travel</Link></li>
                     {loggedInUser ? (
                         <>

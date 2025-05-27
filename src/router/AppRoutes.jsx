@@ -8,6 +8,8 @@ import ForgotPassword from '../pages/ForgotPassword';
 import Welcome from '../pages/Welcome.jsx';
 import TravelDetailPage from '../pages/TravelDetailPage.jsx';
 import MapWithPins from "../pages/MapWithPins.jsx";
+import PrivacyPage from "../pages/PrivacyPage.jsx";
+import TermsPage from "../pages/TermsPage.jsx";
 
 function AppRoutes() {
     return (
@@ -20,6 +22,8 @@ function AppRoutes() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/travel/:id" element={<TravelDetailPage />} />
             <Route path="/map" element={<MapWithPins />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
         </Routes>
     );
 }
