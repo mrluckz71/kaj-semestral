@@ -2,7 +2,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import TravelCard from '../components/TravelCard';
 
 
@@ -17,13 +19,37 @@ import TravelCard from '../components/TravelCard';
 function TravelList() {
     const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [userId, setUser] = useState(null);
 
     useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Logged in user:", user.uid);
+                setUser(user.uid);
+            } else {
+                setUser(null);
+            }
+        });
+
+        // Clean up the listener on unmount:
+        return () => unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        if (!userId) {
+            setTrips([]);        // Optionally clear trips when user logs out
+            setLoading(false);   // Stop loading if no user
+            return;
+        }
             async function fetchTrips() {
                 try {
                         // Try fetching all trips (no filter)
-                        const snapshot = await getDocs(collection(db, "trips"));
+                        const snapshot = await getDocs(
+                            query(collection(db, "trips"),
+                            where("userId", "==", userId)
+                        )
+                        );
+                        console.log("fetched trips for user:", userId);
                         console.log('Snapshot:', snapshot);
                         const trips = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
                         if (navigator.onLine) {
@@ -54,7 +80,7 @@ function TravelList() {
                 }
             }
             fetchTrips();
-        }, []);
+        }, [userId]);
 
 
         return (
@@ -87,21 +113,24 @@ function TravelList() {
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <>
-                    <ul className="travel_list">
-                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='1'/></li>*/}
-                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./src/assets/image.jpg' uniqueId='2'/></li>*/}
-                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='3'/></li>*/}
-                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='4'/></li>*/}
-                            {/*<li><TravelCard location='Paris' description='Lovely place' image='./assets/image.jpg' uniqueId='5'/></li>*/}
-
-                            {trips.map(trip => (
-                                <li>
-                                    <TravelCard location={trip.location} description={trip.description} image={trip.image} uniqueId={trip.id} />
-                                </li>
-                            ))}
-                        </ul>
-                        </>
+                        trips.length === 0 ? (
+                            <p style={{ textAlign: "center", color: "#888", marginTop: "2rem" }}>
+                                No trips to show.
+                            </p>
+                        ) : (
+                            <ul className="travel_list">
+                                {trips.map(trip => (
+                                    <li key={trip.id}>
+                                        <TravelCard
+                                            location={trip.location}
+                                            description={trip.description}
+                                            image={trip.image}
+                                            uniqueId={trip.id}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        )
                     )}
                 </div>
             <Footer />
