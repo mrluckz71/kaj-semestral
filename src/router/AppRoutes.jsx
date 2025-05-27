@@ -10,6 +10,7 @@ import TravelDetailPage from '../pages/TravelDetailPage.jsx';
 import MapWithPins from "../pages/MapWithPins.jsx";
 import PrivacyPage from "../pages/PrivacyPage.jsx";
 import TermsPage from "../pages/TermsPage.jsx";
+import RecommendedPlacePage from "../pages/RecommendedPlacePage.jsx";
 
 function AppRoutes() {
     return (
@@ -24,6 +25,7 @@ function AppRoutes() {
             <Route path="/map" element={<MapWithPins />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
+            <Route path="/recommended" element={<RecommendedPlacePage />} />
         </Routes>
     );
 }

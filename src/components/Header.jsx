@@ -36,6 +36,7 @@ function Header({ trips = [] }) {
             <h1><Link to="/travels" className="home-link">Travel Diary</Link></h1>
             <nav>
                 <ul className="header-nav-links">
+                    <li><Link to="/recommended">Recommended Places</Link></li>
                     <li><Link to="/map" state={{trips}}>Show Map</Link></li>
                     <li><Link to="/add-travel">Add travel</Link></li>
                     {loggedInUser ? (

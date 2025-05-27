@@ -1,9 +1,9 @@
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
 import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { auth } from "../firebase.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import GoBackToWelcome from "../components/GoBackToWelcome.jsx";
+
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -33,6 +33,8 @@ function Login() {
         }
     };
     return (
+        <>
+            <GoBackToWelcome />
         <div className="container">
             <div className="login-container">
                 <form className="login" id="login-form" onSubmit={handleLogin}>
@@ -80,6 +82,7 @@ function Login() {
                 </form>
             </div>
         </div>
+        </>
     );
 }
 

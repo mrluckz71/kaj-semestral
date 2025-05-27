@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import GoBackToMain from "../components/GoBackToMain.jsx";
 
 function AddTravel() {
     const [image, setImage] = useState(null);
@@ -84,6 +85,7 @@ function AddTravel() {
 
     return (
         <>
+            <GoBackToMain />
             <div className="container-addTrip-container">
                 <div className="addTrip-container">
                     <form className="addTrip" id="add-travel-form" onSubmit={handleSubmit}>

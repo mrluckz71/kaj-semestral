@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "../css/pinMap.css";
 import Header from "../components/Header.jsx";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../firebase.js";
 
 const markerIcon = new L.Icon({
     iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
@@ -13,9 +15,41 @@ const markerIcon = new L.Icon({
 });
 
 function MapWithPins() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const trips = location.state?.trips || [];
+    const [trips, setTrips] = useState([]);
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+        async function fetchTrips() {
+            try {
+                const snapshot = await getDocs(collection(db, "trips"));
+                const trips = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+                if (navigator.onLine) {
+                    trips.forEach(trip => {
+                        if (trip.pendingGeolocation) {
+                            // If the trip has pending geolocation, fetch it
+                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(trip.location)}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.length > 0) {
+                                        trip.lat = parseFloat(data[0].lat);
+                                        trip.lng = parseFloat(data[0].lon);
+                                        trip.pendingGeolocation = false;
+                                    }
+                                })
+                                .catch(err => console.error("Error fetching geolocation:", err));
+                        }
+                    })
+                }
+                // Log the fetched trips
+                console.log('Fetched trips:', trips);
+                setTrips(trips);
+            } catch (err) {
+                console.error("Error fetching trips:", err);
+            }
+        }
+        fetchTrips();
+    }, []);
 
     return (
         <div className="map-page">
@@ -27,7 +61,7 @@ function MapWithPins() {
                     <MapContainer
                         center={[20, 0]}
                         zoom={2}
-                        style={{ height: "40vh", width: "50vw", minWidth: 320 }}
+                        style={{ height: "50vh", width: "60vw" }}
                         className="leaflet-container"
                         worldCopyJump={true}
                     >

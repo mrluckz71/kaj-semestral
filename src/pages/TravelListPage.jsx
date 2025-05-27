@@ -59,7 +59,7 @@ function TravelList() {
 
         return (
         <>
-            <Header trips={trips} />
+            <Header />
                 <div className="travel_list_container">
                     {/*<h4>Map of travel destinations</h4>*/}
                     {/*<div className="map" style={{ height: "400px", width: "100%", marginBottom: "2rem" }}>*/}

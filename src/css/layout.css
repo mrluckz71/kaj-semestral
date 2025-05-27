@@ -54,7 +54,6 @@ body {
 
 .header .home-link:hover {
     color: var(--primary-color-hover);
-    transform: scale(1.1);
 }
 
 .header nav {
@@ -95,6 +94,7 @@ body {
     display: flex;
     justify-content: center;
     border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background-color 0.3s ease;
 }
 
@@ -102,12 +102,7 @@ body {
 .header nav ul li button:hover {
     background-color: var(--primary-color-hover);
     cursor: pointer;
-    transform: scale(1.05);
-}
-
-.header nav ul li a,
-.header nav ul li button {
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
 }
 
 .header nav ul li a.active {
@@ -208,7 +203,6 @@ body {
     display: -ms-flexbox;
     display: flex;
     text-align: center;
-    padding: 20px 0;
     position: relative;
     bottom: 0;
     width: 100%;
