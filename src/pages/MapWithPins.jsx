@@ -5,8 +5,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "../css/pinMap.css";
 import Header from "../components/Header.jsx";
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../firebase.js";
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {auth, db} from "../firebase.js";
+import {onAuthStateChanged} from "firebase/auth";
 
 const markerIcon = new L.Icon({
     iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
@@ -16,18 +17,39 @@ const markerIcon = new L.Icon({
 
 function MapWithPins() {
     const [trips, setTrips] = useState([]);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
 
 
     useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserId(user.uid);
+            } else {
+                setUserId(null);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+
+    useEffect(() => {
+        if (!userId) {
+            setTrips([]); // Optionally clear on logout
+            return;
+        }
         async function fetchTrips() {
             try {
-                const snapshot = await getDocs(collection(db, "trips"));
+                // Filter trips by userId!
+                const tripsQuery = query(
+                    collection(db, "trips"),
+                    where("userId", "==", userId)
+                );
+                const snapshot = await getDocs(tripsQuery);
                 const trips = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
                 if (navigator.onLine) {
                     trips.forEach(trip => {
                         if (trip.pendingGeolocation) {
-                            // If the trip has pending geolocation, fetch it
                             fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(trip.location)}`)
                                 .then(response => response.json())
                                 .then(data => {
@@ -39,17 +61,16 @@ function MapWithPins() {
                                 })
                                 .catch(err => console.error("Error fetching geolocation:", err));
                         }
-                    })
+                    });
                 }
-                // Log the fetched trips
-                console.log('Fetched trips:', trips);
                 setTrips(trips);
             } catch (err) {
                 console.error("Error fetching trips:", err);
             }
         }
         fetchTrips();
-    }, []);
+    }, [userId]); // rerun when userId changes!
+
 
     return (
         <div className="map-page">
