@@ -1,78 +1,266 @@
+/* Body styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-gradient-start);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* Header styles */
-.header{
-    background-color: #282c34;
+.header {
+    background-color: var(--header-background);
     color: white;
     text-align: center;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: 80px;
+    padding: 0 20px;
+}
+
+.header .wifi-icon:hover {
+    color: var(--primary-color-hover);
+    transform: scale(1.1);
+}
+
+.header .online-status .hover-text {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #222;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+.header .online-status:hover .hover-text {
+    display: block;
+}
+
+.header .home-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.header .home-link:hover {
+    color: var(--primary-color-hover);
 }
 
 .header nav {
+    height: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
 }
 
 .header nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
-.header nav ul li {
-    margin: 0 10px;
+.header nav ul li,
+.header nav ul li button {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 60%;
+    background-color: var(--header-background);
 }
 
-.header nav ul li a {
+.header nav ul li a,
+.header nav ul li button {
     color: white;
     text-decoration: none;
-    padding: 10px 15px;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
 }
 
-.header nav ul li a:hover {
-    background-color: #21a1f1;
+.header nav ul li a:hover,
+.header nav ul li button:hover {
+    background-color: var(--primary-color-hover);
+    cursor: pointer;
+    transform: scale(1.02);
 }
+
+.header nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Main content styles */
+.travel_list_container {
+    background: linear-gradient(135deg, var(--background-gradient-start, #e0eafc) 0%, var(--background-gradient-end, #cfdef3) 100%);
+    margin: 0;
+    padding: 40px 0;
+    min-height: 100vh;
+}
+
+.travel_list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    padding: 0 40px 40px 40px;
+    margin: 0;
+}
+
+/* Flip card container */
+.flip-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.flip-card {
+    background: transparent;
+    min-width: 300px;
+    height: 240px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.45,0,0.55,1);
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner,
+.flip-card:focus-within .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.flip-card-front img {
+    width: 90%;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 14px;
+}
+
+
+.flip-card-back {
+    background: #fafbff;
+    transform: rotateY(180deg);
+    color: #333;
+    font-size: 1rem;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+
+/* Responsive design */
+
+
 /* Footer styles */
+/* Vendor prefixes */
 .footer {
-    background-color: #282c34;
+    background-color: var(--header-background);
     color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     text-align: center;
-    padding: 20px 0;
     position: relative;
     bottom: 0;
     width: 100%;
 }
 
 .footer nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
     align-items: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     width: 100%;
 }
 
 .footer nav ul {
     list-style: none;
     padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
     justify-content: space-evenly;
+    -ms-flex-pack: distribute;
     align-items: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     width: 100%;
 }
 
-.footer a {
+.footer nav ul li {
+    padding: 20px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    transition: background 0.2s;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.2s;
+    font-size: 20px;
+}
+
+/* Usage of advanced selector  */
+.footer nav ul > li:first-child {
     color: #61dafb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer nav ul li a {
+    color: white;
     text-decoration: none;
 }
 
-.footer a:visited {
-    color: #61dafb;
-}
-.footer a:hover {
-    text-decoration: underline;
+.footer nav ul li a:hover {
+    color: var(--primary-color-hover);
 }

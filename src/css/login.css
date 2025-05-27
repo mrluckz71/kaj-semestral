@@ -1,22 +1,16 @@
 @import "variables.css";
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
-    height: 100vh;
 }
 
 .container {
+    background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
 }
 
 .login-container {
@@ -27,15 +21,18 @@ body {
     padding: 40px 30px;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    width: 350px;
+    min-width: 300px;
+    max-width: 450px;
+    min-height: 450px;
+    max-height: 600px;
     animation: fadeIn 0.8s ease;
 }
 
 .login h1 {
     text-align: center;
     color: var(--primary-color);
-    margin-bottom: 24px;
-    font-size: 28px;
+    margin: 0 180px 30px;
+    font-size: 34px;
 }
 
 .login label {
@@ -49,11 +46,12 @@ body {
 .login input[type="password"],
 .login .email-address,
 .login .password {
+    box-sizing: border-box;
     width: 100%;
     padding: 12px;
     border: 1px solid var(--input-border);
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 20px;
     margin-top: 5px;
     transition: 0.3s;
 }
@@ -64,55 +62,37 @@ body {
     box-shadow: 0 0 6px var(--input-focus);
 }
 
-.remember-me {
+.login .remember-me-label {
     margin-right: 6px;
-
+    font-size: 20px;
+    color: var(--text-color);
+    cursor: pointer;
 }
 
-.forget-password {
-    display: block;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: var(--muted-color);
-    text-decoration: none;
-    transition: color 0.2s;
+.login .remember-me-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-.forget-password:hover {
-    color: var(--link-color);
-    font-weight: bold;
-}
 
 .login-button {
     width: 100%;
     background-color: var(--primary-color);
     border: none;
     color: white;
-    padding: 12px;
-    font-size: 16px;
+    padding: 20px 15px;
+    font-size: 20px;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 
 .login-button:hover {
     background-color: var(--primary-hover);
-}
-
-.login a[href="register.html"],
-.login a[href="login.html"] {
-    color: var(--link-color);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s;
-}
-
-.login a[href="register.html"]:hover,
-.login a[href="login.html"]:hover {
-    color: var(--primary-hover);
 }
 
 
@@ -126,6 +106,47 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.forgot-password {
+    display: block;
+    margin: 30px 20px 0 0;
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.login .forgot-password .forgot-link {
+    text-align: right;
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.forgot-password:hover {
+    color: var(--link-color);
+    font-weight: bold;
+}
+
+.login .register-link {
+    font-size: 20px;
+    color: var(--text-color);
+    margin-top: 20px;
+}
+
+.login .register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login .register-link a:hover {
+    color: var(--primary-hover);
+}
+
+.login .error{
+    color: var(--error-color);
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 @media (max-width: 768px) {

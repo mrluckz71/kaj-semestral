@@ -1,9 +1,9 @@
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
 import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { auth } from "../firebase.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import GoBackToWelcome from "../components/GoBackToWelcome.jsx";
+
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -17,6 +17,10 @@ function Login() {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            console.log("Login successful");
+            // Store user data in localStorage
+            localStorage.setItem("loggedInUser", JSON.stringify({ email }));
+            // Redirect to the travel list page
             navigate("/travels");
         } catch (error) {
             if (error.code === "auth/user-not-found") {
@@ -29,6 +33,8 @@ function Login() {
         }
     };
     return (
+        <>
+            <GoBackToWelcome />
         <div className="container">
             <div className="login-container">
                 <form className="login" id="login-form" onSubmit={handleLogin}>
@@ -53,20 +59,30 @@ function Login() {
                         />
                     </label>
                     {error && <p className="error">{error}</p>}
-                    <label>
-                        <input type="checkbox" className="remember-me"/>
-                        Remember me
-                    </label>
 
-                    <a href="/forget" className="forget-password">Forgot password?</a>
+
+                    {/*<label className="remember-me-label">*/}
+                    {/*    <input type="checkbox" className="remember-me-checkbox" />*/}
+                    {/*        Remember me*/}
+                    {/*</label>*/}
+
 
                     <button className="login-button" type="submit">Login</button>
 
-                    If you don't have an account yet, please
-                    <Link to="/register"> register here</Link>
+                    {/*<div className="forgot-password">*/}
+                    {/*    <Link to="/forgot-password" className="forgot-link">Forgot Password?</Link>*/}
+                    {/*</div>*/}
+
+                    <div className="register-link">
+                        <p>If you don't have an account yet, please
+                            <br />
+                            <Link to="/register">register here</Link>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
+        </>
     );
 }
 

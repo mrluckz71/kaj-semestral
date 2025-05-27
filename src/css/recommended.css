@@ -1,0 +1,100 @@
+@import "variables.css";
+
+.recommended-place-page {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 2rem;
+    background: linear-gradient(to bottom right, var(--background-gradient-start), var(--background-gradient-end));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.recommended-place-page h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+}
+
+.recommended-places-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.recommended-places-list li {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(45, 156, 219, 0.10);
+    padding: 1.5rem 1rem 1.2rem 1rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+.recommended-places-list li:hover {
+    box-shadow: 0 8px 32px rgba(45, 156, 219, 0.14);
+}
+
+
+.recommended-video:hover {
+    box-shadow: 0 8px 48px 12px rgba(45, 156, 219, 0.3);
+}
+
+.recommended-places-list h2 {
+    color: var(--text-color);
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.video-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.video-controls button {
+    background: none;
+    border: none;
+    padding: 0.2rem;
+    cursor: pointer;
+    transition: transform 0.15s;
+    outline: none;
+    border-radius: 50%;
+}
+.video-controls button:active {
+    transform: scale(0.92);
+    background: #e7f5fe;
+}
+.video-controls svg {
+    display: block;
+}
+
+.video-controls input[type="range"] {
+    accent-color: #000000;
+    margin-left: 0.7rem;
+    height: 2px;
+    width: 100px;
+    cursor: pointer;
+}
+
+@media (max-width: 950px) {
+    .recommended-places-list ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    .recommended-places-list li {
+        width: 96vw;
+        max-width: 400px;
+    }
+}

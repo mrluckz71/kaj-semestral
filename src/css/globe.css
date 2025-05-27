@@ -1,13 +1,11 @@
-import
-
 .globe-wrapper{
     padding: 20px;
 }
 
 .globe {
     rotate: -15deg;
-    width: 55px;
-    height: 50px;
+    width: 60px;
+    height: 55px;
     border-radius: 55%;
     background-image: url("../assets/globe.jpg");
     background-size: 200% 110%;
