@@ -84,7 +84,7 @@ function AddTravel() {
 
     const handleDragOver = (e) => e.preventDefault();
 
-    // // TODO: Add a function to handle storing form data in localStorage
+    // TODO: Add a function to handle storing form data in localStorage
     // const handleStoring = (e) => {
     //     const { id, value } = e.target;
     //     if (id === "trip-title" || id === "trip-description" || id === "trip-location") {
@@ -93,13 +93,13 @@ function AddTravel() {
     // };
 
     // Load stored data from localStorage when the component mounts
-    useEffect(() => {
-        const title = localStorage.getItem("trip-title") || "";
-        const description = localStorage.getItem("trip-description") || "";
-
-        document.getElementById("trip-title").value = title;
-        document.getElementById("trip-description").value = description;
-    }, []);
+    // useEffect(() => {
+    //     const title = localStorage.getItem("trip-title") || "";
+    //     const description = localStorage.getItem("trip-description") || "";
+    //
+    //     document.getElementById("trip-title").value = title;
+    //     document.getElementById("trip-description").value = description;
+    // }, []);
 
 
 

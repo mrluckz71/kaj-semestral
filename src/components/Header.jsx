@@ -42,7 +42,7 @@ function Header({ trips = [] }) {
             {/* Hamburger icon */}
             <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
                 {/* Hamburger SVG */}
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
                     <rect y="7" width="32" height="3" rx="1.5" fill="#1976d2"/>
                     <rect y="15" width="32" height="3" rx="1.5" fill="#1976d2"/>
                     <rect y="23" width="32" height="3" rx="1.5" fill="#1976d2"/>
