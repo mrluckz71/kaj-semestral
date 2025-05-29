@@ -87,29 +87,6 @@ function TravelList() {
         <>
             <Header />
                 <div className="travel_list_container">
-                    {/*<h4>Map of travel destinations</h4>*/}
-                    {/*<div className="map" style={{ height: "400px", width: "100%", marginBottom: "2rem" }}>*/}
-                    {/*    {!loading && (*/}
-                    {/*        <MapContainer center={[20, 0]} zoom={2} style={{ height: "100%", width: "100%" }}>*/}
-                    {/*            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />*/}
-                    {/*            {trips.map((trip) =>*/}
-                    {/*                trip.lat && trip.lng ? (*/}
-                    {/*                    <Marker*/}
-                    {/*                        key={trip.id}*/}
-                    {/*                        position={[trip.lat, trip.lng]}*/}
-                    {/*                        icon={markerIcon}*/}
-                    {/*                    >*/}
-                    {/*                        <Popup>*/}
-                    {/*                            <strong>{trip.title || trip.location}</strong><br />*/}
-                    {/*                            {trip.description}*/}
-                    {/*                        </Popup>*/}
-                    {/*                    </Marker>*/}
-                    {/*                ) : null*/}
-                    {/*            )}*/}
-                    {/*        </MapContainer>*/}
-                    {/*    )}*/}
-
-                    {/*</div>*/}
                     {loading ? (
                         <p>Loading...</p>
                     ) : (

@@ -7,6 +7,7 @@ import './css/addTrip.css';
 import './css/welcome.css';
 import './css/globe.css';
 import './css/recommended.css'
+import './css/tripDetail.css';
 
 function App() {
     return (

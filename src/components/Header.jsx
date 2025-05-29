@@ -8,6 +8,10 @@ import OnlineStatus from "./OnlineStatus.jsx";
 function Header({ trips = [] }) {
     const [loggedInUser, setLoggedInUser] = useState(null);
     const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => setMenuOpen(open => !open);
+    const closeMenu = () => setMenuOpen(false);
 
     useEffect(() => {
         // Check localStorage for logged-in user
@@ -34,8 +38,19 @@ function Header({ trips = [] }) {
         <div className="header">
             <OnlineStatus />
             <h1><Link to="/travels" className="home-link">Travel Diary</Link></h1>
-            <nav>
-                <ul className="header-nav-links">
+
+            {/* Hamburger icon */}
+            <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
+                {/* Hamburger SVG */}
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect y="7" width="32" height="3" rx="1.5" fill="#1976d2"/>
+                    <rect y="15" width="32" height="3" rx="1.5" fill="#1976d2"/>
+                    <rect y="23" width="32" height="3" rx="1.5" fill="#1976d2"/>
+                </svg>
+            </button>
+
+            <nav className={menuOpen ? "open" : ""}>
+                <ul className="header-nav-links" onClick={closeMenu}>
                     <li><Link to="/recommended">Recommended Places</Link></li>
                     <li><Link to="/map" state={{trips}}>Show Map</Link></li>
                     <li><Link to="/add-travel">Add travel</Link></li>

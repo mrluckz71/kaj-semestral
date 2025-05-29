@@ -1,62 +1,63 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { useNavigate} from "react-router-dom";
 import GoBackToMain from "../components/GoBackToMain.jsx";
+import LocationWhisper from "../components/LocationWhisper.jsx";
 
 function AddTravel() {
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
+    const [location, setLocation] = useState("");
+    const [locationData, setLocationData] = useState(null);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const title = document.getElementById("trip-title").value;
         const description = document.getElementById("trip-description").value;
-        const location = document.getElementById("trip-location").value;
 
-        if (!title || !location) {
-            alert("Vyplňte název a místo!");
+
+        if (!title || !description) {
+            alert("Fill out all fields!");
             return;
         }
 
-        try {
-            let lat = null;
-            let lon = null;
-            let pendingGeolocation = false;
+        let lat = locationData?.lat ?? null;
+        let lon = locationData?.lon ?? null;
+        let pendingGeolocation = false;
 
+        if (lat === null || lon === null) {
+            // fallback: try Nominatim as before
             if (navigator.onLine) {
                 const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
                 const data = await response.json();
-
-                if (data.length === 0) {
+                if (data.length > 0) {
+                    lat = parseFloat(data[0].lat);
+                    lon = parseFloat(data[0].lon);
+                } else {
                     alert("Location not found!");
                     return;
                 }
-                console.log(data);
-                lat = parseFloat(data[0].lat);
-                lon = parseFloat(data[0].lon);
             } else {
                 pendingGeolocation = true;
             }
-
-            await addDoc(collection(db, "trips"), {
-                title,
-                description,
-                location,
-                lat,
-                lng: lon,
-                pendingGeolocation,
-                image: image || "",
-                userId: auth.currentUser?.uid || "anonymous",
-                createdAt: new Date()
-            });
-
-            console.log("Trip added successfully!");
-            navigate("/travels");
-        } catch (error) {
-            console.error("Error adding trip:", error);
         }
-    };
+        await addDoc(collection(db, "trips"), {
+            title,
+            description,
+            lat,
+            lng: lon,
+            pendingGeolocation,
+            image: image || "",
+            userId: auth.currentUser?.uid || "anonymous",
+            createdAt: new Date()
+        });
+
+        console.log("Trip added successfully!");
+        navigate("/travels");
+    }
+
 
     const handleImageDrop = (e) => {
         e.preventDefault();
@@ -83,10 +84,29 @@ function AddTravel() {
 
     const handleDragOver = (e) => e.preventDefault();
 
+    // // TODO: Add a function to handle storing form data in localStorage
+    // const handleStoring = (e) => {
+    //     const { id, value } = e.target;
+    //     if (id === "trip-title" || id === "trip-description" || id === "trip-location") {
+    //         localStorage.setItem(id, value);
+    //     }
+    // };
+
+    // Load stored data from localStorage when the component mounts
+    useEffect(() => {
+        const title = localStorage.getItem("trip-title") || "";
+        const description = localStorage.getItem("trip-description") || "";
+
+        document.getElementById("trip-title").value = title;
+        document.getElementById("trip-description").value = description;
+    }, []);
+
+
+
     return (
         <>
-            <GoBackToMain />
             <div className="container-addTrip-container">
+                <GoBackToMain />
                 <div className="addTrip-container">
                     <form className="addTrip" id="add-travel-form" onSubmit={handleSubmit}>
                         <h1>🌍 Add a Trip</h1>
@@ -130,9 +150,18 @@ function AddTravel() {
                                 </div>
                             </div>
                         )}
-                        <label className="location">
-                            <input type="text" id="trip-location" placeholder="Enter Location" required />
-                        </label>
+                        <LocationWhisper
+                            value={location}
+                            onChange={val => setLocation(val)}
+                            onSelect={place => {
+                                setLocation(place.location);
+                                setLocationData({
+                                    lat: parseFloat(place.lat),
+                                    lon: parseFloat(place.lon),
+                                });
+                            }}
+                        />
+
                         <button type="submit">Add Trip</button>
                     </form>
                 </div>
