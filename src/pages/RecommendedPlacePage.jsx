@@ -4,15 +4,15 @@ import Header from "../components/Header.jsx";
 const places = [
     {
         name: "Paris, France",
-        videoSrc: "/src/assets/paris.mp4",
+        videoSrc: "https://res.cloudinary.com/dl0fmiofb/video/upload/v1748523330/paris_eecnuy.mp4",
     },
     {
         name: "Tokyo, Japan",
-        videoSrc: "/src/assets/tokyo.mp4",
+        videoSrc: "https://res.cloudinary.com/dl0fmiofb/video/upload/v1748523333/tokyo_iyvtdg.mp4",
     },
     {
         name: "New York City, USA",
-        videoSrc: "/src/assets/newyork.mp4",
+        videoSrc: "https://res.cloudinary.com/dl0fmiofb/video/upload/v1748523354/newyork_alv8hy.mp4",
     },
 ];
 

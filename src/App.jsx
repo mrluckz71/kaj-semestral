@@ -7,6 +7,8 @@ import './css/addTrip.css';
 import './css/welcome.css';
 import './css/globe.css';
 import './css/recommended.css'
+import './css/tripDetail.css';
+import './css/goBackButton.css';
 
 function App() {
     return (
