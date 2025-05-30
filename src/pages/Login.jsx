@@ -4,7 +4,7 @@ import { auth } from "../firebase.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import GoBackToWelcome from "../components/GoBackToWelcome.jsx";
 
-
+// Login Page
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,7 +22,9 @@ function Login() {
             localStorage.setItem("loggedInUser", JSON.stringify({ email }));
             // Redirect to the travel list page
             navigate("/travels");
-        } catch (error) {
+        }
+        // Error handling not working well
+        catch (error) {
             if (error.code === "auth/user-not-found") {
                 setError("User not found. Please register.");
             } else if (error.code === "auth/wrong-password") {

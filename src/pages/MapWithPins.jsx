@@ -9,12 +9,15 @@ import {collection, getDocs, query, where} from "firebase/firestore";
 import {auth, db} from "../firebase.js";
 import {onAuthStateChanged} from "firebase/auth";
 
+// Map marker
 const markerIcon = new L.Icon({
     iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
     iconSize: [25, 41],
     iconAnchor: [12, 41],
 });
 
+
+// MapWithPins component
 function MapWithPins() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
@@ -35,7 +38,7 @@ function MapWithPins() {
 
     useEffect(() => {
         if (!userId) {
-            setTrips([]); // Optionally clear on logout
+            setTrips([]);
             return;
         }
         async function fetchTrips() {

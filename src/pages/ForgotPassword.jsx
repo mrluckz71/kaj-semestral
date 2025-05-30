@@ -2,6 +2,7 @@ import React from 'react';
 
 
 // This is a simple Forgot Password page component
+// Not used in the app, but can be used for future development
 function ForgotPassword() {
 
     return (

@@ -5,13 +5,14 @@ import { useNavigate} from "react-router-dom";
 import GoBackToMain from "../components/GoBackToMain.jsx";
 import LocationWhisper from "../components/LocationWhisper.jsx";
 
+// Add Travel Page
 function AddTravel() {
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
     const [location, setLocation] = useState("");
     const [locationData, setLocationData] = useState(null);
 
-
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         const title = document.getElementById("trip-title").value;
@@ -22,13 +23,13 @@ function AddTravel() {
             alert("Fill out all fields!");
             return;
         }
-
+        // Location data
         let lat = locationData?.lat ?? null;
         let lon = locationData?.lon ?? null;
         let pendingGeolocation = false;
 
         if (lat === null || lon === null) {
-            // fallback: try Nominatim as before
+            // If location is not provided, try to geocode it
             if (navigator.onLine) {
                 const response = await fetch(`/nominatim/search?format=json&q=${location}&accept-language=en`);
                 const data = await response.json();
@@ -43,6 +44,7 @@ function AddTravel() {
                 pendingGeolocation = true;
             }
         }
+        // Save the trip to Firestore
         await addDoc(collection(db, "trips"), {
             title,
             description,
@@ -55,10 +57,11 @@ function AddTravel() {
         });
 
         console.log("Trip added successfully!");
+        // Navigate to the travels page after submission
         navigate("/travels");
     }
 
-
+    // Handle image drop and file selection
     const handleImageDrop = (e) => {
         e.preventDefault();
         const file = e.dataTransfer?.files[0];
@@ -70,6 +73,7 @@ function AddTravel() {
             reader.readAsDataURL(file);
         }
     };
+
 
     const handleFileSelect = (e) => {
         const file = e.target.files[0];
