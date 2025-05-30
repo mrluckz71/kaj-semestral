@@ -9,13 +9,6 @@ import TravelCard from '../components/TravelCard';
 
 
 
-// const markerIcon = new L.Icon({
-//     iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-//     iconSize: [25, 41],
-//     iconAnchor: [12, 41],
-// });
-
-
 function TravelList() {
     const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -37,8 +30,8 @@ function TravelList() {
 
     useEffect(() => {
         if (!userId) {
-            setTrips([]);        // Optionally clear trips when user logs out
-            setLoading(false);   // Stop loading if no user
+            setTrips([]);
+            setLoading(false);
             return;
         }
             async function fetchTrips() {
@@ -56,8 +49,8 @@ function TravelList() {
                             trips.forEach(trip => {
                                 if (trip.pendingGeolocation) {
                                     // If the trip has pending geolocation, fetch it
-                                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(trip.location)}`)
-                                        .then(response => response.json())
+                                    fetch(`/nominatim/search?format=json&q=${trip.location}&accept-language=en`)
+                                    .then(response => response.json())
                                         .then(data => {
                                             if (data.length > 0) {
                                                 trip.lat = parseFloat(data[0].lat);
@@ -99,7 +92,7 @@ function TravelList() {
                                 {trips.map(trip => (
                                     <li key={trip.id}>
                                         <TravelCard
-                                            location={trip.location}
+                                            location={trip.title}
                                             description={trip.description}
                                             image={trip.image}
                                             uniqueId={trip.id}

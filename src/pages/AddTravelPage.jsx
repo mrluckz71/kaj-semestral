@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { useNavigate} from "react-router-dom";
@@ -30,7 +30,7 @@ function AddTravel() {
         if (lat === null || lon === null) {
             // fallback: try Nominatim as before
             if (navigator.onLine) {
-                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+                const response = await fetch(`/nominatim/search?format=json&q=${location}&accept-language=en`);
                 const data = await response.json();
                 if (data.length > 0) {
                     lat = parseFloat(data[0].lat);

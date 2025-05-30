@@ -8,11 +8,16 @@ function LocationWhisper({ onSelect }) {
 
     // Fetch location suggestions from Nominatim
     const fetchSuggestions = (q) => {
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&accept-language=en`)
-            .then(res => res.json())
+        fetch(`/nominatim/search?format=json&q=${q}&accept-language=en`)
+        .then(res => res.json())
             .then(data => {
                 setSuggestions(data);
                 setShowSuggestions(true);
+            })
+            .catch(err => {
+                console.error("Error fetching suggestions:", err);
+                setSuggestions([]);
+                setShowSuggestions(false);
             });
     };
 
@@ -26,7 +31,7 @@ function LocationWhisper({ onSelect }) {
             setShowSuggestions(false);
             return;
         }
-        debounceTimeout.current = setTimeout(() => fetchSuggestions(value), 100);
+        debounceTimeout.current = setTimeout(() => fetchSuggestions(value), 300);
     };
 
     // Handle suggestion click
