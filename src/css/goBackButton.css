@@ -1,5 +1,5 @@
 /* ===== Back Link ===== */
-.back-link {
+.back-link-a {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -13,14 +13,7 @@
     padding: 10px 20px;
 }
 
-.back-link a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-.back-link:hover {
+.back-link-a:hover {
     background-color: var(--primary-color-hover);
     cursor: pointer;
     transform: scale(1.05);

@@ -1,4 +1,10 @@
 @import "variables.css";
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    scroll-behavior: smooth;
+    height: 100%;
+}
 /* Body styles */
 body {
     margin: 0;
@@ -112,90 +118,80 @@ nav {
         justify-content: space-between;
         height: 54px;
         padding: 0 10px;
+        z-index: 9999;
     }
     .menu-toggle {
         display: block;
-        position: absolute;
-        top: 10px;
-        z-index: 99;
+        z-index: 20000;
         width: 38px;
         height: 38px;
     }
 
+    .svg-rotate {
+        transform: rotate(-90deg);
+    }
+
+
     nav {
-        position: absolute;
+        position: fixed;
+        top: 0;
         left: 0;
-        top: 54px;
-        background-color: #61c861;
-        box-shadow: 0 2px 18px rgba(45,156,219,0.12);
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        box-shadow: 0 2px 18px rgba(45, 156, 219, 0.12);
         transition: transform 0.32s, opacity 0.22s;
-        transform: translateY(-140%);
+        transform: translateY(-100%);
         opacity: 0;
         pointer-events: none;
-        z-index: 100;
-        border-bottom-left-radius: 16px;
-        border-bottom-right-radius: 16px;
-        padding: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     nav.open {
         transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
+        z-index: 9999;
     }
+
 
     .header-nav-links {
         flex-direction: column;
-        gap: 0.5rem;
-        padding: 1.2rem 0;
-        background: #fff;
-        align-items: stretch;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        z-index: 10001;
     }
+
+
     .header-nav-links li a,
     .header-nav-links li button {
         color: var(--primary-color);
         background: transparent;
         border: none;
+        text-decoration: none;
         border-radius: 0;
         font-size: 1.13rem;
         width: 100%;
-        text-align: left;
-        justify-content: flex-start;
-        padding: 15px 8vw;
         margin: 0;
+        z-index: 10002;
     }
     .header-nav-links li a:hover,
     .header-nav-links li button:hover {
-        background: #e3f1fc;
-        color: var(--primary-color-hover);
+        background-color: #1e9f20;
     }
     .header-nav-links li p {
         color: #1976d2;
         padding: 10px 8vw;
         font-size: 1.07rem;
         margin: 0;
-    }
-}
-
-@media (max-width: 1000px) {
-    .header {
-        height: 48px;
-        min-height: 48px;
-        padding: 0 3px;
-    }
-    .menu-toggle {
-        top: 0px;
-        right: 20px;
-        width: 32px;
-        height: 32px;
-    }
-    nav {
-        top: 48px;
-    }
-    .header-nav-links li a,
-    .header-nav-links li button {
-        padding: 13px 7vw;
-        font-size: 1rem;
     }
 }
 
@@ -286,7 +282,7 @@ nav {
 
 
 /* Responsive design */
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
     .travel_list_container {
         padding: 1rem 2vw;
     }
@@ -294,20 +290,7 @@ nav {
         max-width: 98vw;
         padding: 1rem 0.5rem;
     }
-}
 
-@media (max-width: 500px) {
-    .travel_list_container {
-        padding: 0.6rem 1vw 2rem 1vw;
-    }
-    .travel-card {
-        max-width: 99vw;
-        padding: 0.6rem 0.2rem;
-        font-size: 0.98rem;
-    }
-    .travel-card img {
-        max-width: 100%;
-    }
 }
 
 /* Footer styles */
