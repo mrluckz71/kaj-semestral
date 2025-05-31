@@ -8,11 +8,11 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import TravelCard from '../components/TravelCard';
 
 
-
 function TravelList() {
     const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userId, setUser] = useState(null);
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,7 +49,7 @@ function TravelList() {
                             trips.forEach(trip => {
                                 if (trip.pendingGeolocation) {
                                     // If the trip has pending geolocation, fetch it
-                                    fetch(`/nominatim/search?format=json&q=${trip.location}&accept-language=en`)
+                                    fetch(`${API_URL}?q=${trip.location}&accept-language=en`)
                                     .then(response => response.json())
                                         .then(data => {
                                             if (data.length > 0) {
