@@ -5,10 +5,11 @@ function LocationWhisper({ onSelect }) {
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const debounceTimeout = useRef(null);
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     // Fetch location suggestions from Nominatim
     const fetchSuggestions = (q) => {
-        fetch(`/nominatim/search?format=json&q=${q}&accept-language=en`)
+        fetch(`${API_URL}?q=${q}&accept-language=en`)
         .then(res => res.json())
             .then(data => {
                 setSuggestions(data);

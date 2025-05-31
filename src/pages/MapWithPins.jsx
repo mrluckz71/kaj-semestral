@@ -22,6 +22,7 @@ function MapWithPins() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
     useEffect(() => {
@@ -53,7 +54,7 @@ function MapWithPins() {
                 if (navigator.onLine) {
                     trips.forEach(trip => {
                         if (trip.pendingGeolocation) {
-                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(trip.location)}`)
+                            fetch(`${API_URL}?q=${encodeURIComponent(trip.location)}`)
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.length > 0) {
