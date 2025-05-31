@@ -17,6 +17,8 @@ function LocationWhisper({ onSelect }) {
             })
             .catch(err => {
                 console.error("Error fetching suggestions:", err);
+                console.error("Query:", q);
+
                 setSuggestions([]);
                 setShowSuggestions(false);
             });
