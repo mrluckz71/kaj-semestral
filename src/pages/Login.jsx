@@ -25,12 +25,20 @@ function Login() {
         }
         // Error handling not working well
         catch (error) {
-            if (error.code === "auth/user-not-found") {
-                setError("User not found. Please register.");
-            } else if (error.code === "auth/wrong-password") {
-                setError("Incorrect password. Please try again.");
-            } else {
-                setError("An error occurred. Please try again.");
+            console.error("Login error:", error.code);
+            switch (error.code) {
+                case "auth/invalid-credential":
+                    setError("Incorrect email or password. Please try again.");
+                    break;
+                case "auth/missing-password":
+                    setError("Please enter your password.");
+                    break;
+                case "auth/invalid-email":
+                    setError("Please enter a valid email address.");
+                    break;
+                default:
+                    setError("An error occurred. Please try again.");
+                    break;
             }
         }
     };
@@ -47,6 +55,9 @@ function Login() {
                         <input
                             className="email-address"
                             placeholder="Email Address"
+                            required
+                            autoFocus={true}
+                            type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -56,6 +67,7 @@ function Login() {
                             className="password"
                             placeholder="Password"
                             type="password"
+                            required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />

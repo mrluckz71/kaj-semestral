@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -73,7 +73,7 @@ function MapWithPins() {
             }
         }
         fetchTrips();
-    }, [userId]); // rerun when userId changes!
+    }, [userId, API_URL]);
 
 
     return (
@@ -98,10 +98,13 @@ function MapWithPins() {
                                     position={[trip.lat, trip.lng]}
                                     icon={markerIcon}
                                     eventHandlers={{
-                                        click: () => navigate(`/travel/${trip.id}`),
+                                        // click: () => navigate(`/travel/${trip.id}`),
                                     }}
                                 >
-                                    <Tooltip>{trip.location}</Tooltip>
+                                    {/*A short description of the trip*/}
+                                    {/*<Tooltip>{trip.title}</Tooltip>*/}
+
+                                    {/*Popup with trip details*/}
                                     <Popup className="custom-popup">
                                         <strong style={{ color: "#1976d2", fontSize: "1.1em" }}>
                                             {trip.title || trip.location}
@@ -130,6 +133,7 @@ function MapWithPins() {
                             ) : null
                         )}
                     </MapContainer>
+
                     <div style={{ marginTop: 18, fontSize: "1.1rem", color: "#555" }}>
                         <span role="img" aria-label="hint">💡</span> Click a pin to GO to the travel details.
                     </div>
