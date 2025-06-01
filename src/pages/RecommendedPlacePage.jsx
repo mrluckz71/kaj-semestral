@@ -19,7 +19,6 @@ const places = [
 function RecommendedPlacesPage() {
     // Create an array of refs, one for each place
     const videoRefs = useRef([]);
-    const [visibleVolumeIdx, setVisibleVolumeIdx] = useState(null);
     const [volumes, setVolumes] = useState([1, 1, 1]); // default volumes
     const [isPlaying, setIsPlaying] = useState(Array(places.length).fill(false));
 
@@ -33,6 +32,7 @@ function RecommendedPlacesPage() {
         if (video) video.pause();
     };
 
+    // Set up event listeners for play, pause, and ended events
     useEffect(() => {
         const cleanups = places.map((_, idx) => {
             const video = videoRefs.current[idx];
@@ -61,14 +61,7 @@ function RecommendedPlacesPage() {
         return () => cleanups.forEach(fn => fn());
     }, []);
 
-    // Hide volume bar after 1.5 seconds
-    useEffect(() => {
-        if (visibleVolumeIdx !== null) {
-            const timeout = setTimeout(() => setVisibleVolumeIdx(null), 1500);
-            return () => clearTimeout(timeout);
-        }
-    }, [visibleVolumeIdx]);
-
+    // Function to handle volume change
     const handleSetVolume = (idx, value) => {
         const newVolumes = [...volumes];
         newVolumes[idx] = parseFloat(value);
@@ -77,9 +70,9 @@ function RecommendedPlacesPage() {
         if (videoRefs.current[idx]) {
             videoRefs.current[idx].volume = value;
         }
-        setVisibleVolumeIdx(idx);
     };
 
+    // Function to handle click on video
     const handleVideoClick = (idx) => {
         const video = videoRefs.current[idx];
         if (video) {
@@ -89,7 +82,6 @@ function RecommendedPlacesPage() {
                 video.play();
             }
         }
-        setVisibleVolumeIdx(idx);
     }
 
     return (
@@ -156,6 +148,7 @@ function RecommendedPlacesPage() {
     );
 }
 
+// VolumeTriangle component to display volume as a triangle
 function VolumeTriangle({ volume, idx }) {
     // Clamp volume between 0 and 1
     volume = Math.max(0, Math.min(1, volume));
@@ -183,22 +176,6 @@ function VolumeTriangle({ volume, idx }) {
         </svg>
     );
 }
-
-
-//
-// function VolumeTriangle({ volume }) {
-//     // Change color/opacity/size based on volume
-//     const opacity = Math.max(0.0, volume); // so it's never totally invisible
-//     const fill = volume === 0 ? "#bbb" : "#2D9CDB";
-//     // Optionally, adjust size based on volume (not required)
-//     const size = 16 + 12 * volume;
-//
-//     return (
-//         <svg width={size} height={size} viewBox="0 0 32 32" style={{ opacity }}>
-//             <polygon points="50,2 50,20 2,20" fill={fill} />
-//         </svg>
-//     );
-// }
 
 
 export default RecommendedPlacesPage;

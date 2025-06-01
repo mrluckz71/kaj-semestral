@@ -19,7 +19,7 @@ function AddTravel() {
         const description = document.getElementById("trip-description").value;
 
 
-        if (!title || !description) {
+        if (!title || !description || !location || !image) {
             alert("Fill out all fields!");
             return;
         }
@@ -71,6 +71,8 @@ function AddTravel() {
                 setImage(event.target.result);
             };
             reader.readAsDataURL(file);
+        } else {
+            alert("Please drop a valid image file.");
         }
     };
 
@@ -83,6 +85,8 @@ function AddTravel() {
                 setImage(event.target.result);
             };
             reader.readAsDataURL(file);
+        } else {
+            alert("Please select a valid image file.");
         }
     };
 

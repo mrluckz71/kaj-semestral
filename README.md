@@ -30,6 +30,8 @@ Pro práci s mapou je využita knihovna **Leaflet.js**.
 Aplikace je hostována na **Firebase**.  
 Odkaz: [https://travel-diary-a5aa1.web.app/](https://travel-diary-a5aa1.web.app/)
 
+Proxy pro API Nominatim je hostována na **Netlify**, z důvodu CORS problémů s Nominatim API.
+
 ---
 
 ## Funkce aplikace

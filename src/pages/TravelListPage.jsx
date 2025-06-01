@@ -62,6 +62,7 @@ function TravelList() {
                                 }
                             })
                         }
+                        // Sort the trips by createdAt in descending order
                         trips.sort((a, b) => b.createdAt - a.createdAt);
                         // Log the fetched trips
                         console.log('Fetched trips:', trips);
@@ -73,7 +74,7 @@ function TravelList() {
                 }
             }
             fetchTrips();
-        }, [userId]);
+        }, [API_URL, userId]);
 
 
         return (

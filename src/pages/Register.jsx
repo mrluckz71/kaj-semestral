@@ -8,14 +8,23 @@ import GoBackToWelcome from "../components/GoBackToWelcome.jsx";
 function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
         setError("");
+
         if (!email || !password) {
             setError("Email and password are required.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setError("Please make sure your passwords match.");
             return;
         }
 
@@ -25,7 +34,20 @@ function Register() {
             console.log("Login successful");
             navigate("/login");
         } catch (error) {
-            setError(error.message);
+            switch (error.code) {
+                case "auth/invalid-email":
+                    setError("Please enter a valid email address.");
+                    break;
+                case "auth/email-already-in-use":
+                    setError("This email is already in use. Please try another one.");
+                    break;
+                case "auth/weak-password":
+                    setError("Password should be at least 6 characters long.");
+                    break;
+                default:
+                    setError("An error occurred. Please try again.");
+                    break;
+            }
         }
     };
 
@@ -56,6 +78,7 @@ function Register() {
                                 type="email"
                                 className="email-address"
                                 required
+                                autoFocus={true}
                                 placeholder="Email Address"
                                 onChange={(e) => setEmail(e.target.value)}
                             />
@@ -78,7 +101,11 @@ function Register() {
                                 id="confirm-register-password"
                                 required
                                 placeholder="Confirm Password"
-                                onChange={handlePasswordMatch}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    // check for match here
+                                    handlePasswordMatch(e);
+                                }}
                             />
                         </label>
 
