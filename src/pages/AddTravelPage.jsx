@@ -19,7 +19,7 @@ function AddTravel() {
         const description = document.getElementById("trip-description").value;
 
 
-        if (!title || !description || !location || !image) {
+        if (!title || !description || !image) {
             alert("Fill out all fields!");
             return;
         }
